@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const covid19ImpactEstimator = (data) => {
   // explicitly defining the data we need
   const {
@@ -24,39 +25,55 @@ const covid19ImpactEstimator = (data) => {
     numberOfDays = timeToElapse * 30;
   }
 
-  const multiplier = Math.floor(numberOfDays / 3);
-  const impactIRT = impact.currentlyInfected * 2 ** multiplier;
-  impact.infectionsByRequestedTime = impactIRT;
+  impact.currentlyInfected = reportedCases * 10;
+  impact.infectionsByRequestedTime =
+    impact.currentlyInfected * 2 ** setsOfThreeDays;
 
-  const severeIRT = severeImpact.currentlyInfected * 2 ** multiplier;
-  severeImpact.infectionsByRequestedTime = severeIRT;
-  const severeCRT = Math.floor(0.15 * impact.infectionsByRequestedTime);
-  impact.severeCasesByRequestedTime = severeCRT;
+  severeImpact.currentlyInfected = reportedCases * 50;
+  severeImpact.infectionsByRequestedTime =
+    severeImpact.currentlyInfected * 2 ** setsOfThreeDays;
 
-  severeImpact.severeCasesByRequestedTime = Math.floor(0.15 * severeIRT);
+  impact.severeCasesByRequestedTime = Math.floor(
+    0.15 * impact.infectionsByRequestedTime
+  );
+  severeImpact.severeCasesByRequestedTime = Math.floor(
+    0.15 * severeImpact.infectionsByRequestedTime
+  );
 
-  const availableBeds = Math.floor(0.35 * totalHospitalBeds);
+  const availableBeds = Math.ceil(0.35 * totalHospitalBeds);
 
-  impact.hospitalBedsByRequestedTime = availableBeds - impact.severeCRT;
+  impact.hospitalBedsByRequestedTime =
+    availableBeds - impact.severeCasesByRequestedTime;
+  severeImpact.hospitalBedsByRequestedTime =
+    availableBeds - severeImpact.severeCasesByRequestedTime;
 
-  severeImpact.hospitalBedsByRequestedTime = availableBeds - severeCRT;
+  impact.casesForICUByRequestedTime = Math.floor(
+    0.05 * impact.infectionsByRequestedTime
+  );
+  impact.casesForVentilatorsByRequestedTime = Math.floor(
+    0.02 * impact.infectionsByRequestedTime
+  );
+  impact.dollarsInFlight = Math.floor(
+    (impact.infectionsByRequestedTime *
+      avgDailyIncomePopulation *
+      avgDailyIncomeInUSD) /
+      numDays
+  );
 
-  impact.casesForICUByRequestedTime = Math.floor(0.05 * impactIRT);
-  severeImpact.casesForICUByRequestedTime = Math.floor(0.05 * severeIRT);
+  severeImpact.casesForICUByRequestedTime = Math.floor(
+    0.05 * severeImpact.infectionsByRequestedTime
+  );
+  severeImpact.casesForVentilatorsByRequestedTime = Math.floor(
+    0.02 * severeImpact.infectionsByRequestedTime
+  );
+  severeImpact.dollarsInFlight = Math.floor(
+    (severeImpact.infectionsByRequestedTime *
+      avgDailyIncomePopulation *
+      avgDailyIncomeInUSD) /
+      numDays
+  );
 
-  impact.casesForVentilatorsByRequestedTime = Math.floor(0.02 * impactIRT);
-
-  const severeIVR = Math.floor(0.02 * severeIRT);
-
-  severeImpact.casesForVentilatorsByRequestedTime = severeIVR;
-  const impactDIF = impactIRT * avgDailyIncomePopulation * avgDailyIncomeInUSD;
-  const newImpactDIF = impactDIF / numberOfDays;
-  impact.dollarsInFlight = Math.floor(newImpactDIF);
-
-  const severeDIF = severeIRT * avgDailyIncomePopulation * avgDailyIncomeInUSD;
-  const newsevereDIF = severeDIF / numberOfDays;
-  severeImpact.dollarsInFlight = Math.floor(newsevereDIF);
-  return { data, impact, severeImpact };
+  return { data: input, impact, severeImpact };
 };
 
 export default covid19ImpactEstimator;
