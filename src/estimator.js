@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */
 const covid19ImpactEstimator = (data) => {
-  // explicitly defining the data we need
+
   const {
     region,
     periodType,
@@ -25,6 +25,7 @@ const covid19ImpactEstimator = (data) => {
   } else if (periodType.toLowerCase() === 'months') {
     numberOfDays = timeToElapse * 30;
   }
+
 
   const multiplier = Math.floor(numberOfDays / 3)
 
