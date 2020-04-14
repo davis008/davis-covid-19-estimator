@@ -3,18 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="A simple web app that estimates COVID-19 impact on a region">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COVID-19 Estimator UI</title>
+    <title>Covid-19 Estimator</title>
 
-
-
+    <!-- Compiled and minified CSS -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-
+    <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-
+    <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-
+    <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.15.0/css/mdb.min.css" rel="stylesheet">
 </head>
 
@@ -22,12 +21,13 @@
     <div class="container py-5">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center mb-5">Estimator for Covid-19 Cases</h2>
+                <h2 class="text-center mb-5">Covid-19 Estimator</h2>
 
 
+                <!-- form user info -->
                 <div class="card card-outline-secondary">
                     <div class="card-header">
-                        <h3 class="mb-0 text-center">Enter Covid-19 Data to get the estimate</h3>
+                        <h3 class="mb-0 text-center">Input Latest Available Data For Estimation</h3>
                     </div>
 
                     <div class="card-body">
@@ -36,15 +36,14 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Region name</label>
                                 <div class="col-lg-9">
-                                    <input id="regionName" data-region-name="Africa" class="form-control" type="text">
+                                    <input class="form-control" type="text">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Region Average Age</label>
                                 <div class="col-lg-9">
-                                    <input id="regionAvgAge" data-region-AvgAge="19.7" class="form-control"
-                                        type="number">
+                                    <input class="form-control" type="number">
                                 </div>
                             </div>
                             <div class="row">
@@ -53,8 +52,7 @@
                             <div class="form-inline">
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                                    <input id="regionAvgDailyIncomeInUSD" data-region-AvgDailyIncomeInUSD="5"
-                                        type="number" class="form-control text-right" id="exampleInputAmount"
+                                    <input type="number" class="form-control text-right" id="exampleInputAmount"
                                         placeholder="0">
                                     <div class="input-group-append"><span class="input-group-text">.00</span></div>
                                 </div>
@@ -62,13 +60,12 @@
                             <hr>
                             <div class="form-group">
                                 <label for="inputName">Region Average Daily Income Population</label>
-                                <input id="regionAvgDailyIncomePopulation" data-region-AvgDailyIncomePopulation="0.71"
-                                    type="text" class="form-control" id="inputName" placeholder="Optional">
+                                <input type="text" class="form-control" id="inputName" placeholder="Optional">
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Period Type</label>
                                 <div class="col-lg-9">
-                                    <select data-period-type="days" id="periodType" class="form-control" size="0"
+                                    <select data-period-type="" id="user_time_zone" class="form-control" size="0"
                                         required>
                                         <option value="Days">Days</option>
                                         <option value="Months">Weeks</option>
@@ -80,15 +77,13 @@
                                 <label class="col-lg-3 col-form-label form-control-label">Number Of
                                     Days/Weeks/Months</label>
                                 <div class="col-lg-9">
-                                    <input id="timeToElapse" data-time-to-elapse="58" class="form-control" type="number"
-                                        required>
+                                    <input data-time-to-elapse="" class="form-control" type="number" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Reported Cases</label>
                                 <div class="col-lg-9">
-                                    <input id="reportedCases" data-reported-cases="674" class="form-control" type="text"
-                                        required>
+                                    <input data-reported-cases="" class="form-control" type="text" required>
                                 </div>
                             </div>
 
@@ -96,46 +91,45 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Population</label>
                                 <div class="col-lg-9">
-                                    <input id="population" data-population="66622705" class="form-control" type="number"
-                                        required>
+                                    <input data-population="" class="form-control" type="number" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Total Hospital Beds</label>
                                 <div class="col-lg-9">
-                                    <input id="totalHospitalBeds" data-total-hospital-beds="1380614"
-                                        class="form-control" type="number" required>
+                                    <input data-total-hospital-beds="" class="form-control" type="number" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label"></label>
+                                <label class="col-lg-3 col-form-label form-control-label">Submit</label>
                                 <div class="col-lg-9">
-                                    <input id="submit" data-go-estimate="submit" type="button" class="btn btn-primary"
-                                        value="Submit">
+                                    <input data-go-estimate="" type="button" class="btn btn-primary" value="Submit">
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-
+                <!-- /form user info -->
 
 
             </div>
         </div>
     </div>
-
+    <!-- Compiled and minified JavaScript -->
+    <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <!-- Bootstrap tooltips -->
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-
+    <!-- Bootstrap core JavaScript -->
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
+    <!-- MDB core JavaScript -->
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.15.0/js/mdb.min.js"></script>
+    <script>
 
-    <script src="/src/index.js"></script>
+    </script>
 </body>
 
 </html>
