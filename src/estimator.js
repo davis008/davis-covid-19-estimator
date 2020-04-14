@@ -1,7 +1,6 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */
 const covid19ImpactEstimator = (data) => {
-
   const {
     region,
     periodType,
@@ -27,7 +26,7 @@ const covid19ImpactEstimator = (data) => {
   }
 
 
-  const multiplier = Math.floor(numberOfDays / 3)
+  const multiplier = Math.floor(numberOfDays / 3);
 
 
   impact.currentlyInfected = reportedCases * 10;
@@ -48,11 +47,11 @@ const covid19ImpactEstimator = (data) => {
 
   impact.casesForICUByRequestedTime = Math.floor(0.05 * impact.infectionsByRequestedTime);
   impact.casesForVentilatorsByRequestedTime = Math.floor(0.02 * impact.infectionsByRequestedTime);
-  impact.dollarsInFlight = Math.floor((impact.infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD) / numDays);
+  impact.dollarsInFlight = Math.floor((impact.infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD) / numberOfDays);
 
   severeImpact.casesForICUByRequestedTime = Math.floor(0.05 * severeImpact.infectionsByRequestedTime);
   severeImpact.casesForVentilatorsByRequestedTime = Math.floor(0.02 * severeImpact.infectionsByRequestedTime);
-  severeImpact.dollarsInFlight = Math.floor((severeImpact.infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD) / numDays);
+  severeImpact.dollarsInFlight = Math.floor((severeImpact.infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD) / numberOfDays);
 
   return { data, impact, severeImpact };
 };
