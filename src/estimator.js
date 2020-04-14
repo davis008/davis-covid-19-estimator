@@ -30,8 +30,8 @@ const covid19ImpactEstimator = (data) => {
 
   const severeIRT = severeImpact.currentlyInfected * 2 ** multiplier;
   severeImpact.infectionsByRequestedTime = severeIRT;
-  const severeCRT = 0.15 * impact.infectionsByRequestedTime;
-  impact.severeCasesByRequestedTime = Math.floor(severeCRT);
+  const severeCRT = Math.floor(0.15 * impact.infectionsByRequestedTime);
+  impact.severeCasesByRequestedTime = severeCRT;
 
   severeImpact.severeCasesByRequestedTime = Math.floor(0.15 * severeIRT);
 
