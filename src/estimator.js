@@ -25,8 +25,8 @@ const covid19ImpactEstimator = (data) => {
   }
 
   const multiplier = Math.trunc(numberOfDays / 3);
-   impactIRT=impact.currentlyInfected * 2 ** multiplier;
-  impact.infectionsByRequestedTime = impactIRT
+  impactIRT = impact.currentlyInfected * 2 ** multiplier;
+  impact.infectionsByRequestedTime = impactIRT;
 
   severeIRT = severeImpact.currentlyInfected * 2 ** multiplier;
   severeImpact.infectionsByRequestedTime = severeIRT;
@@ -37,21 +37,25 @@ const covid19ImpactEstimator = (data) => {
 
   const availableBeds = Math.trunc(0.35 * totalHospitalBeds);
 
-  impact.hospitalBedsByRequestedTime =availableBeds - impact.severeCRT;
+  impact.hospitalBedsByRequestedTime = availableBeds - impact.severeCRT;
 
-  severeImpact.hospitalBedsByRequestedTime =availableBeds - severeCRT;
+  severeImpact.hospitalBedsByRequestedTime = availableBeds - severeCRT;
 
   impact.casesForICUByRequestedTime = Math.trunc(0.05 * impactIRT);
   severeImpact.casesForICUByRequestedTime = Math.trunc(0.05 * severeIRT);
 
   impact.casesForVentilatorsByRequestedTime = Math.trunc(0.02 * impactIRT);
 
-  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(0.02 * severeIRT);
-    impactDIF=(impactIRT *avgDailyIncomePopulation *avgDailyIncomeInUSD)/numberOfDays;
-  impact.dollarsInFlight = Math.trunc(impactDIF);
+  severeIVR = Math.trunc(0.02 * severeIRT);
 
-  severeDIF=(severeIRT*avgDailyIncomePopulation *avgDailyIncomeInUSD) / numberOfDays);
-  severeImpact.dollarsInFlight = Math.floor(severeDIF);
+  severeImpact.casesForVentilatorsByRequestedTime = severeIVR;
+  impactDIF = impactIRT * avgDailyIncomePopulation * avgDailyIncomeInUSD;
+  newImpactDIF = impactDIF / numberOfDays;
+  impact.dollarsInFlight = Math.trunc(newImpactDIF);
+
+  severeDIF = severeIRT * avgDailyIncomePopulation * avgDailyIncomeInUSD;
+  newsevereDIF = severeDIF / numberOfDays;
+  severeImpact.dollarsInFlight = Math.floor(newsevereDIF);
   return { data, impact, severeImpact };
 };
 
