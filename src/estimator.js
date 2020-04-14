@@ -24,34 +24,34 @@ const covid19ImpactEstimator = (data) => {
     numberOfDays = timeToElapse * 30;
   }
 
-  const multiplier = Math.trunc(numberOfDays / 3);
+  const multiplier = Math.floor(numberOfDays / 3);
   const impactIRT = impact.currentlyInfected * 2 ** multiplier;
   impact.infectionsByRequestedTime = impactIRT;
 
   const severeIRT = severeImpact.currentlyInfected * 2 ** multiplier;
   severeImpact.infectionsByRequestedTime = severeIRT;
   const severeCRT = 0.15 * impact.infectionsByRequestedTime;
-  impact.severeCasesByRequestedTime = Math.trunc(severeCRT);
+  impact.severeCasesByRequestedTime = Math.floor(severeCRT);
 
-  severeImpact.severeCasesByRequestedTime = Math.trunc(0.15 * severeIRT);
+  severeImpact.severeCasesByRequestedTime = Math.floor(0.15 * severeIRT);
 
-  const availableBeds = Math.trunc(0.35 * totalHospitalBeds);
+  const availableBeds = Math.floor(0.35 * totalHospitalBeds);
 
   impact.hospitalBedsByRequestedTime = availableBeds - impact.severeCRT;
 
   severeImpact.hospitalBedsByRequestedTime = availableBeds - severeCRT;
 
-  impact.casesForICUByRequestedTime = Math.trunc(0.05 * impactIRT);
-  severeImpact.casesForICUByRequestedTime = Math.trunc(0.05 * severeIRT);
+  impact.casesForICUByRequestedTime = Math.floor(0.05 * impactIRT);
+  severeImpact.casesForICUByRequestedTime = Math.floor(0.05 * severeIRT);
 
-  impact.casesForVentilatorsByRequestedTime = Math.trunc(0.02 * impactIRT);
+  impact.casesForVentilatorsByRequestedTime = Math.floor(0.02 * impactIRT);
 
-  const severeIVR = Math.trunc(0.02 * severeIRT);
+  const severeIVR = Math.floor(0.02 * severeIRT);
 
   severeImpact.casesForVentilatorsByRequestedTime = severeIVR;
   const impactDIF = impactIRT * avgDailyIncomePopulation * avgDailyIncomeInUSD;
   const newImpactDIF = impactDIF / numberOfDays;
-  impact.dollarsInFlight = Math.trunc(newImpactDIF);
+  impact.dollarsInFlight = Math.floor(newImpactDIF);
 
   const severeDIF = severeIRT * avgDailyIncomePopulation * avgDailyIncomeInUSD;
   const newsevereDIF = severeDIF / numberOfDays;
